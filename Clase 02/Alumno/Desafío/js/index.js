@@ -11,8 +11,9 @@ switch (genero){
       message= message + 'Sr.'
     break
 
-    case 'Other':
+    default:
       message=message + 'Sx.'
+    break
 
    }
 
