@@ -21,19 +21,22 @@ var studentsList = [
     }
   ]
 
-  var result = getPosition (prompt("Ingresá un apellido"), studentsList)
+  var text = prompt ('Ingrese un nombre')
 
-  console.log('La posición del estudiante es ' + result)
+  var result = getPosition (text, studentsList)
 
-  function getPosition (lastName, studentsArray){
-      var student
-      for(var i=0; i < studentsArray.length; i++){
-          student=studentsArray[i]
-
-          if(student.lastName === lastName){
+  function getPosition (text, studentsList){
+      for(var i=0; i < studentsList.length; i++){
+        var student = studentsList[i]
+        if(text === student.lastName || text === student.firstName){
           return i
       }
     }
     return -1
   }
   
+  if (result !== -1){
+  console.log('Se encontró el estudiante en la posición ' + result)
+  }else{
+    console.log('No se pudo encontrar el estudiante')
+  }
