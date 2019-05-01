@@ -1,11 +1,16 @@
 var numbers = [1,2,3,4,5]
 
-var numbersUpdated = numbers.slice()
+function deleteElement (index, array){
+    
+    var arrayCopy = array.slice()
+    
+    arrayCopy.splice(index, 1)
 
-function deleteElement (a, b){
-    numbersUpdated.splice (a, b)
-    return numbersUpdated
+    return arrayCopy
+
 }
+
+var newNumbers = deleteElement (2, numbers)
 console.log(numbers)
 
-console.log(deleteElement(2, 1))
+console.log(newNumbers)
