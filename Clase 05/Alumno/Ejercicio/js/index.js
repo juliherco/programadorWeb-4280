@@ -6,7 +6,7 @@ function Car (brand, model, year){
     var id=Math.random()
 
     this.getCarName = function(){
-        console.log('Your car is a '+brand+' ' +model+' del año '+year)
+        return ('Your car is a '+brand+' ' +model+' del año '+year)
     }
 }
 
