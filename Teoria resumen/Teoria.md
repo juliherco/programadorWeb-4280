@@ -925,7 +925,7 @@ sayMyName(2) // Muestra en consola el string 'Tu nombre es 2'
 
 # Valor de retorno de una función
 
-El valor de retorno de una función lo que devuelve la función al ser ejecutada. Si la función no tiene valor de retorno devuelve `undefined`.
+El valor de retorno de una función es lo que devuelve la función al ser ejecutada. Si la función no tiene valor de retorno devuelve `undefined`.
 
 - Ej: Función con argumentos de entrada y valor de retorno:
 
@@ -1156,22 +1156,21 @@ user.showInfo() // Muestra en consola 'Hola mi nombre es Mónica y mi edad es 46
 
 [Más info](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects)
 
-#*CLASE 6*
+#_CLASE 6_
 
 # typeof
 
 Al aplicar el operador `typeof` sobre una variable este nos devuelve un `string` que indica el tipo de valor contenido en la misma, siguiendo la siguiente tabla:
 
-
-| Tipo           | Resultado      |
-|:--------------:|:--------------:|
-| `Undefined`    | ``undefined`   |
-| `Null`         | `'object'`     |
-| `Boolean`      | `'boolean'`    |
-| `Number`       | `'number'`     |
-| `String`       | `'string'`     |
-| `Function`     | `'function'`   |
-| `Object`       | `'object'`     |
+|    Tipo     |  Resultado   |
+| :---------: | :----------: |
+| `Undefined` | ``undefined` |
+|   `Null`    |  `'object'`  |
+|  `Boolean`  | `'boolean'`  |
+|  `Number`   |  `'number'`  |
+|  `String`   |  `'string'`  |
+| `Function`  | `'function'` |
+|  `Object`   |  `'object'`  |
 
 Como vemos en la siguiente tabla no todos los tipos de valores están contemplados, como es el caso de los Array. Pero para validar que un elemento sea tipo `string` o `number` nos sirve y nos permite poder usar los métodos correspondientes a esos tipos de variables.
 
@@ -1252,7 +1251,7 @@ console.log(text) // Esto muestra en consola 'Hola soy GERMÁN'
 ```js
 var text = 'Hola soy GERMÁN'
 
-var splitedText = text.split(' ') 
+var splitedText = text.split(' ')
 
 console.log(splitedText) // Esto muestra en consola el Array ['Hola', 'soy', 'GERMÁN']
 
@@ -1260,7 +1259,6 @@ console.log(text) // Esto muestra en consola 'Hola soy GERMÁN'
 ```
 
 > Al usar el método `split` pasando le como parámetro el carácter espacio (' ') este nos devolvió un Array con los tres substring que quedaron de la variable `text` original y luego comprobamos que no se modifica el String original.
-
 
 ```js
 var numbers = '1,2,3,4,5'
@@ -1276,7 +1274,6 @@ console.log(splitedNumbers) // Esto muestra en consola el Array ['1', '2', '3', 
 
 El objeto Array tiene un método llamado `.isArray()` que nos permite evaluar si un valor es Array o no, el método devuelve `true` en caso correcto y `false` si el valor no es un Array. Esto nos va a permitir validar un valor para luego usar los métodos o propiedades de Array sin riesgo de errores.
 
-
 ```js
 var numbers = [1, 2, 3]
 
@@ -1289,7 +1286,7 @@ Array.isArray(obj) // Devuelve como resultado false
 
 > Al aplicar el método `.isArray()` puedo comprobar que la variable `numbers` contiene un Array, pero que la variable `obj` no. Esto me permite identificar que métodos y propiedades podre usar en cada caso.
 
-#	Métodos de Array
+# Métodos de Array
 
 Al asignar un valor de tipo Array a una variable implícitamente estamos creando un objeto de tipo Array. Esto hace que dicha variable tenga acceso a propiedades y métodos del objeto Array de JavaScript que nos permiten hacer distintas operaciones de manera más sencilla. Algunos de ellos son:
 
@@ -1298,7 +1295,7 @@ Al asignar un valor de tipo Array a una variable implícitamente estamos creando
 - La propiedad `length` indica la cantidad de elementos que tiene nuestro Array en formato de número entero, si esta vacío devuelve 0.
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
 console.log(numbers.length) // Esto muestra en consola el número 4
 ```
@@ -1310,7 +1307,7 @@ console.log(numbers.length) // Esto muestra en consola el número 4
 - El método `push` nos permite agregar un elemento al final de un Array, modifican el original.
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
 numbers.push(5)
 
@@ -1324,7 +1321,7 @@ console.log(numbers) // Muestra en consola [1, 2, 3, 4, 5]
 - El método `toString` convierte un Array en un string cuyos valores están separados por comas (','). Importante notar que no modifica el Array original.
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
 var stringNumbers = numbers.toString()
 
@@ -1338,7 +1335,7 @@ console.log(stringNumbers) // Muestra en consola '1,2,3,4'
 - El método `join` convierte un Array en un string cuyos valores están separados por comas el valor que le paso por parámetro al método. Importante notar que no modifica el Array original.
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
 var stringNumbers = numbers.join(' ')
 
@@ -1352,24 +1349,23 @@ console.log(stringNumbers) // Muestra en consola '1 2 3 4'
 - El método `splice` nos permite modificar una Array eliminando elementos del mismo. El método recibe como primer parámetro el indice a partir del cual eliminar y como segundo parámetro el número de elemento a eliminar.
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
-numbers.splice(2,1)
+numbers.splice(2, 1)
 
 console.log(numbers) // Muestra en consola [1,2,4]
 ```
 
 > El método `splice` elimina un elemento desde la posición 2 del Array, modificando el original.
 
-
 ## Método slice
 
-- El método `slice` nos hacer una copia de una parte de un Array, el método recibe como primer parámetro el indice a partir del cual empezar la copia y como segundo parámetro el indice final de la copia (desde donde, hasta donde) el final no esta incluido. Si no le pasamos ningún parámetro devuelve una copia del Array completo (shallow copy).
+- El método `slice` nos permite hacer una copia de una parte de un Array, el método recibe como primer parámetro el indice a partir del cual empezar la copia y como segundo parámetro el indice final de la copia (desde donde, hasta donde) el final no esta incluido. Si no le pasamos ningún parámetro devuelve una copia del Array completo (shallow copy).
 
 ```js
-var numbers = [1,2,3,4]
+var numbers = [1, 2, 3, 4]
 
-var numbersCopy1 = numbers.slice(2,4)
+var numbersCopy1 = numbers.slice(2, 4)
 
 console.log(numbersCopy1) // Muestra en consola [3,4]
 
@@ -1382,13 +1378,12 @@ numbers === numbersCopy2 // Devuelve false
 
 > El método `slice` devuelve una copia del Array `numbers` desde la posición 2 hasta la 3 (el 4 no está incluido), esa copia la guardo en la variable `numbersCopy1`. En el segundo caso hace una copia completa del Array `numbers`, esa copia la guardo en la variable `numbersCopy2` y luego la comparo para verificar que son dos Array distintos.
 
-
 ## Método sort
 
 - El método `sort` ordena un Array usando la tabla ASCCI como parámetro de orden.
 
 ```js
-var numbers = [2,3,1,4]
+var numbers = [2, 3, 1, 4]
 
 numbers.sort()
 
@@ -1411,7 +1406,7 @@ console.log(numbers) // Muestra en consola [5, 4, 3, 2, 1]
 
 > En este caso al usar la función podemos ordenarlo en orden inverso al caso default.
 
-#*CLASE 7*
+#_CLASE 7_
 
 # SessionStorage
 
@@ -1511,7 +1506,7 @@ console.log(parsedObj) // Esto muestra en consola el objeto {firstName: "Adrián
 
 > Al aplicar el método parse no se modifica el string original, sino que se genera un objeto JavcaScript nuevo cuyas propiedades coinciden con las del string JSON.
 
-#*CLASE 8*
+#_CLASE 8_
 
 # Árbol de nodos
 
@@ -1525,7 +1520,7 @@ console.log(parsedObj) // Esto muestra en consola el objeto {firstName: "Adrián
 
 - El árbol de nodos comienza en un objeto o nodo principal llamado `document`, es a partir de este nodo que vamos a acceder y a manipular todos los otros. El objeto `document` es de alto nivel, como lo es el `Array` o el `JSON` por lo cual la forma de emplear sus métodos es similar al igual que antes hacíamos `JSON.stringify()`, ahora usaremos métodos como `document.getElementById()`.
 
-#	Acceso a los nodos
+# Acceso a los nodos
 
 - Existen varios métodos para acceder a los nodos que utilizan distintas formas de identificarlos puede ser a través del Id, de la clase, del nombre de la etiqueta, etc. Por lo cual con sabiendo alguno de esos datos de nuestro elemento HTML vamos a poder acceder a ese nodo y manipularlo para poder mostrar en pantalla datos dinámicos creados en JavaScript.
 
@@ -1533,7 +1528,7 @@ console.log(parsedObj) // Esto muestra en consola el objeto {firstName: "Adrián
 
 - El método que vamos a emplear para acceder a un nodo sabiendo su Id es `getElementById()`, este método recibe como parámetro un Id en formato string y devuelve como resultado un solo nodo, porque el Id debería ser único en toda la página.
 
-*Supongamos nuestra página con el siguiente HTML*
+_Supongamos nuestra página con el siguiente HTML_
 
 ```html
 <h1 id="main-title"></h1>
@@ -1547,12 +1542,11 @@ titleNode.innerHTML = 'Al fin voy a ver algo en mi página'
 
 > Este código lo que va a hacer es buscar en la página el elemento HTML con el Id `main-title`, luego voy a guardarlo en la variable `titleNode` y le voy a pedir mediante la propiedad `innerHTML` que el contenido del nodo sea el string 'Al fin voy a ver algo en mi página'. De esta manera el resultado en nuestra pagina es que el elemento de mi página queda así -> `<h1 id="main-title">Al fin voy a ver algo en mi página</h1>` logrando mostrarle al usuario un mensaje en el HTML pero empleando código JavaScript para lograrlo.
 
-
 ## Acceso a los nodos por clase
 
 - El método que vamos a emplear para acceder a un nodo sabiendo su clase es `getElementsByClassName()`, este método recibe como parámetro una clase en formato string y devuelve como resultado array de nodos, porque pueden existir varios nodos con la misma clase.
 
-*Supongamos nuestra página con el siguiente HTML*
+_Supongamos nuestra página con el siguiente HTML_
 
 ```html
 <p class="paragraph"></p>
@@ -1575,7 +1569,8 @@ paragraphsNodes[2].innerHTML = 'Soy el párrafo numero tres'
 <p class="paragraph">Soy el párrafo numero dos</p>
 <p class="paragraph">Soy el párrafo numero tres</p>
 ```
-#	Crear y eliminar nodos
+
+# Crear y eliminar nodos
 
 - Para poder agregar o eliminar elementos de nuestro HTML existen distintos métodos o propiedades que podemos utilizar, nosotros vamos a ver algunos a continuación.
 
@@ -1612,13 +1607,13 @@ paragraphNode.innerHTML = '<p>Soy un párrafo</p>'
 - El método `appendChild()` nos va a permitir agrega un nodo dentro de otro, recibe como parámetro un nodo y lo agrega dentro del elemento que llamo el método. Este método es muy útil para cuando queremos agregar elementos uno por uno, el caso típico es una lista que proviene de un Array de javaScript.
 
 ```js
-var list = ['Elemento 1','Elemento 2','Elemento 3']
+var list = ['Elemento 1', 'Elemento 2', 'Elemento 3']
 
 var listNode = document.createElement('ul')
 
 var listItemNode
 
-for(var i = 0; i < list.length; i++){
+for (var i = 0; i < list.length; i++) {
   listItemNode = document.createElement('li')
 
   listItemNode.innerHTML = list[i]
@@ -1697,8 +1692,6 @@ document.getElementById('title').id = 'pato'
 
 > En el código vemos tanto como acceder al valor de la propiedad Id, así como modificarlo. El resultado final es que el HTML queda asi -> `<h1 id="pato"></h1>`
 
-
-
 ```html
 <li id="list-item"></li>
 ```
@@ -1709,9 +1702,8 @@ document.getElementById('text-input').className = 'list-group-item'
 
 > En el código vemos como asigna la clase `list-group-item` el nodo `<li>`, esta clase se va agregar a otras que se encuentren en el nodo. El elemento quedaría así -> `<li id="list-item" class="list-group-item"></li>`
 
-
 ```html
-<input type="text" id="text-input">
+<input type="text" id="text-input" />
 ```
 
 ```js
@@ -1724,7 +1716,7 @@ document.getElementById('text-input').value = ''
 
 > En el código vemos tanto como acceder al valor de la propiedad value de un input que es el valor que el usuario haya ingresado en el campo. Depsués en la siguiente línea lo que hacemos es asignarle el string vacío para borrar lo que estuviera en el input.
 
-#*CLASE 9*
+#_CLASE 9_
 
 # ¿Que son los eventos y para qué sirven?
 
@@ -1739,7 +1731,7 @@ Para suscribirnos a un evento podemos usar un atributo en nuestro tag HTML con e
 ```
 
 ```js
-function showMessage(){
+function showMessage() {
   console.log('El usuario hizo click')
 }
 ```
@@ -1749,22 +1741,27 @@ function showMessage(){
 Si queremos que el mismo elemento se suscriba a más de un evento simplemente agregamos otro atributo para manejar ese nuevo evento en nuestro tag HTML y le asignamos otra función para ejecutar.
 
 ```html
-<input type="button" class="btn-primary" onclick="showMessage()" onblur="showBlurMessage()" />
+<input
+  type="button"
+  class="btn-primary"
+  onclick="showMessage()"
+  onblur="showBlurMessage()"
+/>
 ```
 
 ```js
-function showMessage(){
+function showMessage() {
   console.log('El usuario hizo click')
 }
 
-function showBlurMessage(){
+function showBlurMessage() {
   console.log('El usuario perdió el foco')
 }
 ```
 
 > En este código al hacer click en el botón se va a mostrar un mensaje en consola que diga `'El usuario hizo click'` y al perder el foco un mensaje que diga `'El usuario perdió el foco'`.
 
-*La desventaja de esta forma es que suele ensuciar nuestro HTML si queremos suscribir nuestro botón a varios eventos porque cada uno es un atributo más, si encima a esto le agregamos que los elementos tienen sus propios atributos como clases o estilos el asunto empeora. Por este motivo a lo largo del curso vamos a utilizar la forma semántica.*
+_La desventaja de esta forma es que suele ensuciar nuestro HTML si queremos suscribir nuestro botón a varios eventos porque cada uno es un atributo más, si encima a esto le agregamos que los elementos tienen sus propios atributos como clases o estilos el asunto empeora. Por este motivo a lo largo del curso vamos a utilizar la forma semántica._
 
 # Eventos semánticos
 
@@ -1779,7 +1776,7 @@ var button = document.getElementById('button')
 
 button.onclick = showMessage
 
-function showMessage(){
+function showMessage() {
   console.log('El usuario hizo click')
 }
 ```
@@ -1797,20 +1794,20 @@ var button = document.getElementById('button')
 
 button.onclick = showMessage
 
-function showMessage(){
+function showMessage() {
   console.log('El usuario hizo click')
 }
 
 button.onmouseover = showMessageOver
 
-function showMessageOver(){
+function showMessageOver() {
   console.log('El usuario paso el mouse sobre el botón')
 }
 ```
 
 > En este código al hacer click en el botón se va a mostrar un mensaje en consola que diga `'El usuario hizo click'` y al pasar el mouse por encima un mensaje que diga `'El usuario paso el mouse sobre el botón'`.
 
-*En este caso el HTML se mantiene limpio porque solo es necesario el id en el HTML no importa cuantos manejadores de eventos le agreguemos al mismo elemento. Esto mantiene nuestro código más limpio y ordenado*
+_En este caso el HTML se mantiene limpio porque solo es necesario el id en el HTML no importa cuantos manejadores de eventos le agreguemos al mismo elemento. Esto mantiene nuestro código más limpio y ordenado_
 
 # Evento click
 
@@ -1825,7 +1822,7 @@ var button = document.getElementById('button')
 
 button.onclick = showMessage
 
-function showMessage(){
+function showMessage() {
   console.log('El usuario hizo click')
 }
 ```
@@ -1843,9 +1840,9 @@ var button = document.getElementById('button')
 
 button.onclick = showMessage
 
-function showMessage(event){
-  var inputNode =  event.target
-  
+function showMessage(event) {
+  var inputNode = event.target
+
   console.log('El usuario hizo click en el elmento con id ' + inputNode.id)
 }
 ```
@@ -1865,7 +1862,7 @@ var inputText = document.getElementById('input-text')
 
 inputText.onblur = showMessage
 
-function showMessage(){
+function showMessage() {
   console.log('El usuario perdió foco')
 }
 ```
@@ -1883,16 +1880,15 @@ var inputText = document.getElementById('input-text')
 
 inputText.onblur = showMessage
 
-function showMessage(event){
-  var inputNode =  event.target
+function showMessage(event) {
+  var inputNode = event.target
 
-  console.log('El usuario perdió foco y el input tiene el valor ' + inputNode.value)
+  console.log(
+    'El usuario perdió foco y el input tiene el valor ' + inputNode.value
+  )
 }
 ```
 
 > En este código al hacer click en el botón se va a mostrar un mensaje en consola que diga `'El usuario perdió foco y el input tiene el valor <valor de input en ese momento>'`.
 
-#*CLASE 10*
-
-
-
+#_CLASE 10_
