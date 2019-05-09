@@ -8,6 +8,16 @@ var newStudent = {
 function createStudentNode(newStudent) {
   var studentList = document.getElementById('mainList')
 
+  var fullName = ''
+
+  if (newStudent.firstName && newStudent.lastName) {
+    fullName = newStudent.firstName + ' ' + newStudent.lastName
+  } else if (newStudent.firstName) {
+    fullName = newStudent.firstName
+  } else if (newStudent.lastName) {
+    fullName = newStudent.lastName
+  } //TERMINAR DE ARMAR ESTO!!
+
   var li = document.createElement('li')
   li.innerHTML =
     '<h1>' +
@@ -21,7 +31,9 @@ function createStudentNode(newStudent) {
     '</p>'
   li.className = 'list-group-item'
   li.id = newStudent.dni
-  studentList.appendChild(li)
+  return li
 }
 
 var studentNode = createStudentNode(newStudent)
+
+console.log(studentNode)
