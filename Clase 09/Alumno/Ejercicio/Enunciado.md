@@ -1,4 +1,9 @@
-# Crear una función que valide que el campo nombre no sea vacío cuando el usuario pierde el foco
+# Crear una función que valide que el campo código postal no sea vacío cuando el usuario pierde el foco
+
+- Que sea number
+- Que sea >1000
+- <9999
+- Que exista
 
 - La función tiene que validar el campo en el cual se dispara el evento y verificar que el valor del mismo no sea vacío. En caso de que haya un error tiene que agregar una clase para mostrar el input en rojo, en caso contrario una clase para que se muestre en verde.
 
