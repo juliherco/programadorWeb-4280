@@ -8,7 +8,8 @@ var newStudent = {
 function createStudentNode(newStudent) {
   var li = document.createElement('li')
 
-  //var studentList = document.getElementById('mainList')(No hace falta porque todavia no lo tenemos que crear en el HTML)
+  //var studentList = document.getElementById('mainList')(No hace falta porque todavia no lo tenemos que crear en el HTML
+  )
 
   var fullName = ''
 
