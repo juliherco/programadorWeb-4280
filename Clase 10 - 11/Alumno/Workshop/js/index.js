@@ -7,11 +7,16 @@ var studentsList = getLocalList('list')
 //Busco el campo nombre y DNI en el DOM y lo traigo a JS
 var firstNameInput = document.getElementById('firstName')
 var dniInput = document.getElementById('dni')
-var deleteDni = document.getElementById('deleteDni')
+var deleteDniInput = document.getElementById('deleteDni')
 var addStudentButton = document.getElementById('addStudentButton')
 var mainListNode = document.getElementById('mainList')
+var lastNameInput = document.getElementById('lastName')
+var emailInput = document.getElementById('email')
+var searchListNode = document.getElementById('searchList')
+var searchInput = document.getElementById('searchText')
+var searchStudentButton = document.getElementById('searchStudentButton')
 
-//Carga inicial de los elementos en el DOM
+//Carga inicial de los elementos que estan en el LS en el DOM
 for (var i = 0; i < studentsList.length; i++) {
   var student = studentsList[i]
   var liStudent = createStudentNode(student)
@@ -19,28 +24,83 @@ for (var i = 0; i < studentsList.length; i++) {
 }
 
 //Respondo al evento onblur con la funcion que valida el campo nombre y DNI
-firstNameInput.onblur = validateRequired
+firstNameInput.onblur = validateFirstName
 dniInput.onblur = validateDni
+emailInput.onblur = emailValidation
 
 //Con el botón validado, llamo a la función que agrega el estudiante
 addStudentButton.onclick = addStudent
-
 deleteStudentButton.onclick = deleteStudent
+searchStudentButton.onclick = searchStudent
+
+//TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+function searchStudent() {
+  var searchValue = searchInput.value
+  if (searchValue) {
+    var index = searchStudentIndexByText(searchValue, studentsList)
+    if (index !== -1) {
+      console.log(index)
+      var searchStudent = studentsList[index]
+      var liSearch = createStudentNode(searchStudent)
+      searchListNode.appendChild(liSearch)
+    }
+  }
+
+  function searchStudentIndexByText(text, studentsList) {
+    var index = -1
+    for (var i = 0; i < studentsList.length; i++) {
+      var student = studentsList[i].firstName
+      var upperStudent = student.toUpperCase()
+      var upperText = text.toUpperCase()
+      //TODO: ME FALTA PASARLO A MAYUSCULAS
+      if (upperStudent === upperText) {
+        index = i
+        break
+      }
+    }
+    return index
+  }
+}
 
 function deleteStudent() {
   //Busco el valor en el input a eliminar
   var dniValue = deleteDniInput.value
-//TODO!!! SEGUIR LA FUNCION
+  if (dniValue) {
+    // Busco el indice en memoria
+    var index = searchStudentIndexByDni(dniValue, studentsList)
+
+    if (index !== -1) {
+      // Elimino en memoria
+      studentsList.splice(index, 1)
+
+      // Actualizo la info del local storage con la info en memoria
+      setLocalList('list', studentsList)
+
+      var liNode = document.getElementById(dniValue)
+
+      mainListNode.removeChild(liNode)
+
+      deleteDniInput.value = ''
+    } else {
+      // alert('Usuario NO existente')
+      // deleteDniInput.value = ''
+    }
+  }
+}
 
 function addStudent() {
   //levanto los valores ya validados del form
   var firstNameValue = firstNameInput.value
   var dniValue = dniInput.value
+  var emailValue = emailInput.value
+  var lastNameValue = lastNameInput.value
 
   //creo un objeto estudiante local
   var student = {
     firstName: firstNameValue,
-    dni: dniValue
+    lastName: lastNameValue,
+    dni: dniValue,
+    email: emailValue
   }
 
   //Agrego el estudiante en memoria (LS)
@@ -57,7 +117,9 @@ function addStudent() {
 
   //Limpiamos el formulario una vez que lo agrega al LS
   firstNameInput.value = ''
+  lastNameInput.value = ''
   dniInput.value = ''
+  emailInput.value = ''
 
   //vuelvo a deshabilitar el botón
   addStudentButton.disabled = true
@@ -65,9 +127,10 @@ function addStudent() {
   //Saco las clases válidas
   firstNameInput.classList.remove('is-valid')
   dniInput.classList.remove('is-valid')
+  emailInput.classList.remove('is-valid')
 }
 
-function validateRequired(event) {
+function validateFirstName(event) {
   var inputNode = event.target //target es la propiedad, y event es un nombre generico, puedo poner cualquier cosa. Me avisa en qué campo el usuario hizo click o escribió algo. Me guardo esto en la var inputNode para ver exactamente en qué elemento fue que el usuario hizo algo
 
   var value = inputNode.value //Busco qué valor tenía el nodo en ese momento
@@ -85,20 +148,23 @@ function validateRequired(event) {
 }
 
 function validateDni(event) {
+  // Encuetro que nodo disparó el evento blur
   var inputNode = event.target
+
+  // Busco que valor tenía el nodo en ese momento
   var value = inputNode.value
 
+  // Trato de convertir a número
   var parsedValue = parseInt(value, 10) //Trato de convertir a número
 
   //verifico si existe el DNI en los datos guardados en local Storage
-  //TODO: Hay que terminar de validar esto
-
   var dniExists = false
   if (searchStudentIndexByDni(value, studentsList) !== -1) {
     dniExists = true
   }
 
   if (!value || isNaN(parsedValue) || parsedValue <= 0 || dniExists) {
+    //caso inválido
     inputNode.classList.add('is-invalid')
     inputNode.classList.remove('is-valid')
   } else {
@@ -109,11 +175,28 @@ function validateDni(event) {
   validateAddButton()
 }
 
+function emailValidation(event) {
+  var inputNode = event.target
+  var inputValue = inputNode.value
+
+  if (
+    inputValue.indexOf('@') === -1 ||
+    (inputValue.indexOf('.') === -1 || !inputValue)
+  ) {
+    emailInput.classList.add('is-invalid')
+    emailInput.classList.remove('is-valid')
+  } else {
+    emailInput.classList.add('is-valid')
+    emailInput.classList.remove('is-invalid')
+  }
+  validateAddButton()
+}
+
 //Función para validar si todos los campos son validos y habilitar el boton
 function validateAddButton() {
   var validInputs = document.getElementsByClassName('is-valid') //Busco todos los campos válidos
 
-  if (validInputs.length !== 2) {
+  if (validInputs.length !== 3) {
     //como tengo 2 campos, me tengo que fijar que los campos válidos que encuentra sean todos (osea 2) para habilitar el botón
     addStudentButton.disabled = true
   } else {
@@ -121,14 +204,18 @@ function validateAddButton() {
   }
 }
 
+//Guarda un array en formato JSON en el localStorage
 function setLocalList(key, list) {
+  // Verifico los parámetros recibidos
   if (typeof key === 'string' && Array.isArray(list)) {
+    // Convierto a JSON el array
     var stringyTestList = JSON.stringify(list)
-
+    // Guardo en el localStorage pisando la key
     localStorage.setItem(key, stringyTestList)
   }
 }
 
+//Busca en la localStorage si hay algo, me lo trae en formato JS y si no hay nada me trae un aray vacío
 function getLocalList(key) {
   if (typeof key === 'string') {
     var localList = localStorage.getItem(key)
@@ -141,7 +228,10 @@ function getLocalList(key) {
   }
 }
 
+//devuelve un nodo li con los datos del alumno pasado por parámetro
 function createStudentNode(newStudent) {
+  // Creo el nodo li
+
   var li = document.createElement('li')
 
   var fullName = ''
@@ -164,6 +254,8 @@ function createStudentNode(newStudent) {
     '</p>'
   li.className = 'list-group-item'
   li.id = newStudent.dni
+
+  // Devuelvo solo el nodo con todos sus datos
   return li
 }
 
@@ -171,7 +263,7 @@ function searchStudentIndexByDni(dni, studentsList) {
   var index = -1
   for (var i = 0; i < studentsList.length; i++) {
     var student = studentsList[i]
-    if (student.dni === dnis) {
+    if (student.dni === dni) {
       index = i
       break
     }

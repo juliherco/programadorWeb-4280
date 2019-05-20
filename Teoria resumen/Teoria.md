@@ -1891,4 +1891,103 @@ function showMessage(event) {
 
 > En este código al hacer click en el botón se va a mostrar un mensaje en consola que diga `'El usuario perdió foco y el input tiene el valor <valor de input en ese momento>'`.
 
-#_CLASE 10_
+#_CLASE 12_
+
+# ¿Qué es jQuery?
+
+jQuery es un biblioteca muy popular hecha en JavaScript que no va a permitir manipular el DOM y algunas otras funciones de manera más sencilla y dinámica. Una biblioteca es un conjunto de funciones definidas y empaquetadas que pueden ser utilizadas al importar el código en nuestro programa, mediante el llamado a los métodos definidos en las mismas. En general la mayoría contienen documentación que nos explica como utilizar cada método indicando el nombre de cada uno, sus parámetros de entrada esperados y su valor de retorno o comportamiento esperado.
+
+[Documentación de jQuery](https://api.jquery.com/)
+
+# ¿Para que sirve?
+
+Esta biblioteca va a exponer métodos que nos van a permitir agregar y eliminar elementos en el DOM, crear animaciones y responder a eventos de manera más sencilla que con Vanilla JavaScript. Actualmente el uso de esta biblioteca mermo un poco con la aparición de React o frameworks como Angular, pero aún es muy practica para crear páginas dinámicas o animadas.
+
+# ¿Como descargarlo e incluirlo en el proyecto?
+
+Hay varias formas de incluirlo en nuestro proyecto que se detalla en la página de jQuery:
+
+   - Se puede incluir un link al CDN directamente en el HTML, que es un servidor remoto que aloja el código de jQuery.
+   - Se puede copiar el código de JavaScript y copiarlo en un archivo que luego importemos en nuestro HTML.
+   - También se puede instalar en nuestra carpeta usando `npm install jquery`, esto va a crear una carpeta `node_modules` local y ahí va a guardar el código de jQuery.
+
+[Página de jQuery](https://jquery.com/download/)
+
+# Minificado vs no minificado
+
+Existen dos tipos de archivos que podemos incluir con el código de jQuery, uno es el minificado o comprimido y el otro es el formato normal o no comprimido. El minificado es un formato en el cual el JavaScript no tiene ningún comentario, salto de línea ni espacio y todo se encuentra escrito en una sola línea, este formato lo vamos a utilizar cuando lo subamos al servidor para ahorrar tiempo de carga. El formato no minificado es el código normal de JavaScript y nos va a servir durante el desarrollo ya que nos va a dar más información cuando ocurra algún error y nos va a permitir leerlo fácilmente para entender detalles puntuales del código.
+
+# Equivalencias en jQuery de algunos de los métodos y propiedades vistos hasta ahora
+
+
+## Buscar un nodo por su Id
+
+Vanilla JavaScript
+
+```js
+var inputNode = document.getElementById('firstName')
+```
+
+jQuery
+
+```js
+var inputNode = $('#firstName')
+```
+
+> Es importante aclarar que el nodo que obtenemos a través de jQuery no es el mismo tipo de nodo que uno de Vanilla JavaScript. Este nodo obtenido tiene métodos propios de jQuery que no posee un nodo de JavaScript. Por otro lado jQuery siempre devuelve un array por más que el selector sea un Id.
+
+## Buscar nodos por clases
+
+Vanilla JavaScript
+
+```js
+var validNodes = document.getElementsByClassName('is-valid')
+```
+
+jQuery
+
+```js
+var validNodes = $('.is-valid')
+```
+
+> Es importante aclarar que el array de nodos que obtenemos a través de jQuery no es el mismo tipo de nodos de Vanilla JavaScript. Estos nodos obtenidos tienen métodos propios de jQuery que no poseen los nodos de JavaScript.
+
+## Escuchar el evento click
+
+Vanilla JavaScript
+
+```js
+var buttonNode = document.getElementById('button')
+
+buttonNode.onclick = submitInfo
+```
+
+jQuery
+
+```js
+var buttonNode = $('#button')
+
+buttonNode.click(submitInfo)
+```
+
+> En el caso de jQuery la función se pasa como un parámetro dentro del método `click()`.
+
+## Escuchar el evento blur
+
+Vanilla JavaScript
+
+```js
+var inputNode = document.getElementById('firstName')
+
+inputNode.onblur = validateField
+```
+
+jQuery
+
+```js
+var inputNode = $('#firstName')
+
+inputNode.blur(validateField)
+```
+
+> En el caso de jQuery la función se pasa como un parámetro dentro del método `blur()`.
