@@ -33,11 +33,12 @@ addStudentButton.onclick = addStudent
 deleteStudentButton.onclick = deleteStudent
 searchStudentButton.onclick = searchStudent
 
-//TODO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function searchStudent() {
   var searchValue = searchInput.value
   if (searchValue) {
     var index = searchStudentIndexByText(searchValue, studentsList)
+    //LIMPIO LA LISTA DE BUSQUEDA POR SI HABIA ALGO ANTES
+    searchListNode.innerHTML = ''
     if (index !== -1) {
       console.log(index)
       var searchStudent = studentsList[index]
@@ -49,16 +50,40 @@ function searchStudent() {
   function searchStudentIndexByText(text, studentsList) {
     var index = -1
     for (var i = 0; i < studentsList.length; i++) {
-      var student = studentsList[i].firstName
-      var upperStudent = student.toUpperCase()
-      var upperText = text.toUpperCase()
-      //TODO: ME FALTA PASARLO A MAYUSCULAS
-      if (upperStudent === upperText) {
+      var student = studentsList[i]
+      if (
+        includesText(text, student.firstName) ||
+        includesText(text, student.lastName)
+      ) {
         index = i
         break
       }
     }
     return index
+  }
+
+
+/**
+ * includesText busca coincidencias parciales del primer texto
+ * dentro del segundo
+ * @param {*} text texto a buscar
+ * @param {*} baseText texto donde se va a realizar la búsqueda
+ * @returns {boolean} true si encuentra y false en caso contrario
+ */
+function includesText(text, baseText) {
+  // Valido que ambos parámetros sean string
+  if (typeof text === 'string' && typeof baseText === 'string') {
+    // Verifico si el primer parámetro se encuentra dentro del segundo
+    var textUpperCase = text.toUpperCase()
+    var baseTextUpperCase = baseText.toUpperCase()
+
+    if (baseTextUpperCase.indexOf(textUpperCase) !== -1) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
   }
 }
 

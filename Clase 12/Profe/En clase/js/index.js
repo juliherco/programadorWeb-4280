@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
   console.log('Soy un jQuery')
 
   // Vanilla JS
@@ -49,13 +49,13 @@ $(document).ready(function () {
 
   liNodes.hover(liHover)
 
-  function liHover () {
+  function liHover() {
     var node = $(this)
 
     node.remove()
   }
 
-  function liClick () {
+  function liClick() {
     var node = $(this)
 
     // node.remove()
@@ -63,3 +63,5 @@ $(document).ready(function () {
     node.addClass('is-valid')
   }
 })
+
+PATO

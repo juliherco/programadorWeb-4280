@@ -1910,8 +1910,20 @@ Hay varias formas de incluirlo en nuestro proyecto que se detalla en la página 
    - Se puede incluir un link al CDN directamente en el HTML, que es un servidor remoto que aloja el código de jQuery.
    - Se puede copiar el código de JavaScript y copiarlo en un archivo que luego importemos en nuestro HTML.
    - También se puede instalar en nuestra carpeta usando `npm install jquery`, esto va a crear una carpeta `node_modules` local y ahí va a guardar el código de jQuery.
+   - Lo agregamos desde google (copiamos el link) y lo agregamos justo antes del index.js en el HTML - https://developers.google.com/speed/libraries/#jquery
 
 [Página de jQuery](https://jquery.com/download/)
+
+#Para empezar:
+
+Ir a la documentación de Jquery y por seguridad poner primero 
+
+```js
+$( document ).ready(function() {
+  // Handler for .ready() called. - Le agrego un console.log
+});
+//Te dice que ejecutes la función cuando se cargue el documento
+```
 
 # Minificado vs no minificado
 
@@ -1933,6 +1945,8 @@ jQuery
 ```js
 var inputNode = $('#firstName')
 ```
+
+Se lo llama igual que cuando los llamamos en CSS 
 
 > Es importante aclarar que el nodo que obtenemos a través de jQuery no es el mismo tipo de nodo que uno de Vanilla JavaScript. Este nodo obtenido tiene métodos propios de jQuery que no posee un nodo de JavaScript. Por otro lado jQuery siempre devuelve un array por más que el selector sea un Id.
 
