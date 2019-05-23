@@ -1,11 +1,11 @@
-$(document).ready(function (){
+$(document).ready(function() {
+  var squareNode = $('.square')
 
-var squareNode=$('.square')
+  squareNode.click(sqClick)
 
-squareNode.click(addImage)
+  function sqClick() {
+    var node = $(this)
 
-function addImage(){
-  var node
-}
-
-}
+    node.addClass('square')
+  }
+})
