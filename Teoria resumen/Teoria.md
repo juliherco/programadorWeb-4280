@@ -2005,3 +2005,144 @@ inputNode.blur(validateField)
 ```
 
 > En el caso de jQuery la función se pasa como un parámetro dentro del método `blur()`.
+
+#CLASE 13
+
+# Más eventos de jQuery
+
+## Document ready
+
+El método `$(document).ready()` nos va a permitir ejecutar una función solo cuando está cargado todo el contenido de nuestra página, de esta manera evitamos que se ejecute un JavaScript que busque algún elemento que no este cargado. Siempre que trabajamos con jQuery vamos a escribir el código que inicia nuestra aplicación dentro de este método.
+
+```js
+$(document).ready(function () {
+  console.log('Init App')
+  // Espacio para escribir el código de nuestra aplicación
+})
+```
+
+> En este caso el `console.log` se va a ejecutar solo cuando se haya cargado todo el contenido de nuestra página, no importa si el JavaScript se importó al principio del body en el HTML o al final.
+
+## On
+
+El método `.on()` nos va a permitir ejecutar una función cuando se dispare el evento que le pasamos como parámetro. Esto nos permite suscribirnos a cualquier evento que no este implementado en jQuery como método particular.
+
+```js
+$('#button').on('click', handleButtonClick)
+```
+
+> Cuando se haga un click sobre el botón de Id `button` se va a llamar a la función `handleButtonClick`.
+
+## One
+
+El método `.one()` nos va a permitir ejecutar una función cuando se dispare el evento que le pasamos como parámetro, pero solo la primera vez. Esto nos permite suscribirnos a cualquier evento y que asegurarnos que se ejecute solo la primera vez que se dispara.
+
+```js
+$('#button').on('click', handleButtonClick)
+```
+
+> Cuando se haga un click sobre el botón de Id `button` se va a llamar a la función `handleButtonClick`, pero si se presiona por segunda vez no va a pasar nada.
+
+## Keydown
+
+El método `.keydown()` nos va a permitir ejecutar una función cuando el usuario presione una tecla. Dentro de la función usando la propiedad which del evento vamos a poder diferenciar que tecla fue la que se presionó.
+
+```js
+$(document).keydown(handleKeyDown)
+
+function handleKeyDown(event){
+  if(event.which === 32){
+    console.log('Se presionó la barra espaciadora')
+  }
+}
+```
+
+> Cuando se presione la barra espaciadora en cualquier parte del documento se va a mostrar en consola el mensaje `Se presionó la barra espaciadora`.
+
+# Más métodos de jQuery
+
+## Append
+
+El método `.append()` permite agregar un string con formato HTML como el último elemento de un contenedor. Es similar al `.appendChild()` de Vanilla JavaScript, pero no es necesario crear el nodo previamente, lo resuelve a partir de un string como el `innerHTML`.
+
+```html
+<ul>
+  <li id="1">Item 1</li>
+  <li id="2">Item 2</li>
+</ul>
+```
+
+
+```js
+$('main-list').append('<li id="3">Item 3</li>')
+```
+
+> Agregar un elemento `<li>` al final de la lista en el DOM con el texto `Item 3` y el id `3`, justo debajo del segundo item.
+
+## Next
+
+El método `.next()` devuelve nodo de jQuery que esta debajo el nodo de referencia.
+
+```html
+<ul>
+  <li id="1">Item 1</li>
+  <li id="2">Item 2</li>
+</ul>
+```
+
+```js
+var liNode = $('#1').next()
+```
+
+> En la variable `liNode` se guarda el nodo de Id `2`.
+
+## Remove
+
+El método `.remove()` elimina el nodo de jQuery sin necesidad de buscar el nodo padre.
+
+```html
+<ul>
+  <li id="1">Item 1</li>
+  <li id="2">Item 2</li>
+</ul>
+```
+
+```js
+$('#2').remove()
+```
+
+> Elimina el nodo de Id `2` de el DOM.
+
+## Parent
+
+El método `.parent()` devuelve el nodo de jQuery que es padre del nodo referencia.
+
+```html
+<ul>
+  <li id="1">Item 1</li>
+  <li id="2">Item 2</li>
+</ul>
+```
+
+```js
+var parentNode = $('#1').parent()
+```
+
+> La variable `parentNode` guarda el nodo `ul` que es padre del `li`.
+
+## Css
+
+El método `.css()` permite cambiar los estilos del nodo, cambiando alguna propiedad de css. Recibe como primer parámetro la propiedad y como segundo parámetro el valor
+
+```html
+<ul>
+  <li id="1">Item 1</li>
+  <li id="2">Item 2</li>
+</ul>
+```
+
+```js
+$('#1').css('color','red')
+```
+
+> Cambia el color de letra del primer item a rojo.
