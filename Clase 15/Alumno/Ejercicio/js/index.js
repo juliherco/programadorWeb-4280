@@ -1,7 +1,5 @@
 $(document).ready(function() {
-  console.log('Wookie')
-
-  var url = 'https://swapi.co/api/people/3/'
+  var url = 'https://swapi.co/api/people/5/'
 
   getData(url, callback)
 
