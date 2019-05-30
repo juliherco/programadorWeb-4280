@@ -1716,7 +1716,7 @@ document.getElementById('text-input').value = ''
 
 > En el código vemos tanto como acceder al valor de la propiedad value de un input que es el valor que el usuario haya ingresado en el campo. Depsués en la siguiente línea lo que hacemos es asignarle el string vacío para borrar lo que estuviera en el input.
 
-#_CLASE 9_
+# _CLASE 9_
 
 # ¿Que son los eventos y para qué sirven?
 
@@ -1895,7 +1895,7 @@ function showMessage(event) {
 
 # ¿Qué es jQuery?
 
-jQuery es un biblioteca muy popular hecha en JavaScript que no va a permitir manipular el DOM y algunas otras funciones de manera más sencilla y dinámica. Una biblioteca es un conjunto de funciones definidas y empaquetadas que pueden ser utilizadas al importar el código en nuestro programa, mediante el llamado a los métodos definidos en las mismas. En general la mayoría contienen documentación que nos explica como utilizar cada método indicando el nombre de cada uno, sus parámetros de entrada esperados y su valor de retorno o comportamiento esperado.
+jQuery es un biblioteca muy popular hecha en JavaScript que nos va a permitir manipular el DOM y algunas otras funciones de manera más sencilla y dinámica. Una biblioteca es un conjunto de funciones definidas y empaquetadas que pueden ser utilizadas al importar el código en nuestro programa, mediante el llamado a los métodos definidos en las mismas. En general la mayoría contienen documentación que nos explica como utilizar cada método indicando el nombre de cada uno, sus parámetros de entrada esperados y su valor de retorno o comportamiento esperado.
 
 [Documentación de jQuery](https://api.jquery.com/)
 
@@ -1914,7 +1914,7 @@ Hay varias formas de incluirlo en nuestro proyecto que se detalla en la página 
 
 [Página de jQuery](https://jquery.com/download/)
 
-#Para empezar:
+# Para empezar:
 
 Ir a la documentación de Jquery y por seguridad poner primero 
 
@@ -1928,6 +1928,10 @@ $( document ).ready(function() {
 # Minificado vs no minificado
 
 Existen dos tipos de archivos que podemos incluir con el código de jQuery, uno es el minificado o comprimido y el otro es el formato normal o no comprimido. El minificado es un formato en el cual el JavaScript no tiene ningún comentario, salto de línea ni espacio y todo se encuentra escrito en una sola línea, este formato lo vamos a utilizar cuando lo subamos al servidor para ahorrar tiempo de carga. El formato no minificado es el código normal de JavaScript y nos va a servir durante el desarrollo ya que nos va a dar más información cuando ocurra algún error y nos va a permitir leerlo fácilmente para entender detalles puntuales del código.
+
+## this
+
+El método `$(this)` te dice en qué elemento del DOM está interactuando el usuario
 
 # Equivalencias en jQuery de algunos de los métodos y propiedades vistos hasta ahora
 
@@ -2006,7 +2010,7 @@ inputNode.blur(validateField)
 
 > En el caso de jQuery la función se pasa como un parámetro dentro del método `blur()`.
 
-#CLASE 13
+# _CLASE 13_
 
 # Más eventos de jQuery
 
@@ -2025,7 +2029,7 @@ $(document).ready(function () {
 
 ## On
 
-El método `.on()` nos va a permitir ejecutar una función cuando se dispare el evento que le pasamos como parámetro. Esto nos permite suscribirnos a cualquier evento que no este implementado en jQuery como método particular.
+El método `.on()` nos va a permitir ejecutar una función cuando se dispare el evento que le pasamos como parámetro. Esto nos permite suscribirnos a cualquier evento que no este implementado en jQuery como método particular. Se usa para llamar a eventos que no estén en Jquery. O podés llamar a más de un evento en una misma funcion
 
 ```js
 $('#button').on('click', handleButtonClick)
@@ -2038,7 +2042,7 @@ $('#button').on('click', handleButtonClick)
 El método `.one()` nos va a permitir ejecutar una función cuando se dispare el evento que le pasamos como parámetro, pero solo la primera vez. Esto nos permite suscribirnos a cualquier evento y que asegurarnos que se ejecute solo la primera vez que se dispara.
 
 ```js
-$('#button').on('click', handleButtonClick)
+$('#button').one('click', handleButtonClick)
 ```
 
 > Cuando se haga un click sobre el botón de Id `button` se va a llamar a la función `handleButtonClick`, pero si se presiona por segunda vez no va a pasar nada.
@@ -2146,3 +2150,665 @@ $('#1').css('color','red')
 ```
 
 > Cambia el color de letra del primer item a rojo.
+
+# _CLASE 14_
+
+# Efectos y animaciones
+
+La biblioteca de jQuery cuenta con métodos que nos permiten realizar efectos o animaciones más fácilmente cuando cambiamos elementos en el DOM. En otros casos nos permiten hacer animaciones que no serían posibles en CSS como el cambio entre un `display: none` a un `display: block`.
+
+## Hide
+
+El método `.hide()` nos permite cambiar un elemento que se encuentra con un valor `display` visible a `display: none`. Este cambio lo hace realizando una transición suave que va modificando las propiedades `width`, `height` y `opacity` gradualmente hasta llegar a cero. Esto hace que el elemento se esconda completo en la pantalla en un punto fijo, por defecto este punto es `top: 0; left: 0`. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 id="main-title">Harry Potter y la piedra filosofal</h1>
+```
+
+```js
+$('#main-title').hide(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para ocultar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/hide/)
+
+## Show
+
+El método `.show()` nos permite cambiar un elemento que se encuentra con `display: none` a `display: block` o al valor `display` que tuviera antes de ser ocultado. Este cambio lo hace realizando una transición suave que va modificando las propiedades `width`, `height` y `opacity` gradualmente hasta su valor máximo normal o inicial. Esta hace que el elemento se vea completo en la pantalla desde un punto fijo, por defecto este punto es `top: 0; left: 0`. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 style="display: none" id="main-title">Harry Potter y la cámara secreta </h1>
+```
+
+```js
+$('#main-title').show(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para mostrar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/show/)
+
+## FadeOut
+
+El método `.fadeOut()` nos permite cambiar un elemento que se encuentra con un valor `display` visible a `display: none`. Este cambio lo hace realizando una transición suave que va modificando la propiedad `opacity` gradualmente hasta el valor cero. Esto hace que el elemento se esconda completo en la pantalla, a diferencia del método `.hide()` no modifica el tamaño del elemento. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 id="main-title">Harry Potter y el prisionero de Azkaban</h1>
+```
+
+```js
+$('#main-title').fadeOut(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para ocultar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/fadeOut/)
+
+## FadeIn
+
+El método `.fadeIn()` nos permite cambiar un elemento que se encuentra con `display: none` a `display: block` o al valor `display` que tuviera antes de ser ocultado. Este cambio lo hace realizando una transición suave que va modificando la propiedad `opacity` gradualmente hasta su valor máximo normal o inicial. Esto hace que que el elemento se vea completo en la pantalla, a diferencia del método `.show()` no modifica el tamaño del elemento. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 style="display: none" id="main-title">Harry Potter y el cáliz de fuego</h1>
+```
+
+```js
+$('#main-title').fadeIn(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para mostrar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/fadeIn/)
+
+## SlideUp
+
+El método `.slideUp()` nos permite cambiar un elemento que se encuentra con un valor `display` visible a `display: none`. Este cambio lo hace realizando una transición suave que va modificando la propiedad `height` gradualmente hasta el valor cero. Esto hace que el elemento se esconda completo en la pantalla respetando la posición `top` como punto fijo. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 id="main-title">Harry Potter y la Orden del Fénix</h1>
+```
+
+```js
+$('#main-title').slideUp(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para ocultar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/slideUp/)
+
+## SlideDown
+
+El método `.slideDown()` nos permite cambiar un elemento que se encuentra con `display: none` a `display: block` o al valor `display` que tuviera antes de ser ocultado. Este cambio lo hace realizando una transición suave que va modificando la propiedad `height` gradualmente hasta su valor máximo normal o inicial. Esto hace que el elemento se muestre en la pantalla respetando la posición `top` como punto fijo. Los parámetros principales que recibe son el tiempo de la animación y una función callback que se llama cuando la misma se completa.
+
+```html
+<h1 id="main-title">Harry Potter y el misterio del príncipe</h1>
+```
+
+```js
+$('#main-title').slideDown(3000, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a realizar una animación de 3 segundos para ocultar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/slideDown/)
+
+## Delay
+
+El método `.delay()` nos permitir retrasar la ejecución del siguiente método de animación que se le aplique a ese elemento, durante un tiempo que le pasamos como parámetro. Es importante que el método de animación tenga un tiempo distinto de cero si no el retraso no se aplica.
+
+```html
+<h1 id="main-title">Harry Potter y las Reliquias de la Muerte</h1>
+```
+
+```js
+$('#main-title').delay(3000).hide(300, function () {
+  console.log('Se completo la animación')
+})
+```
+
+> El código va a esperar 3 segundos, luego realizar una animación de 3 milisegundos para ocultar el título en pantalla y luego imprime el mensaje en consola una vez completada.
+
+[Documentación oficial](https://api.jquery.com/delay/)
+
+# Efecto parallax con jQuery
+
+El efecto Parallax se logra cuando los elementos se mueven a distintas velocidad en la pantalla cuando el usuario navega por la página, dando la sensación de profundidad. Podemos realizar este efecto en el eje vertical usando algunos métodos de jQuery.
+
+## Scroll
+
+El método `.scroll()` nos permite responder a los desplazamientos del usuario, ya sea usando la rueda del mouse o la barra lateral de scroll. Si lo usamos sobre el objeto `window` nos permite detectar los desplazamientos de la ventana que esta viendo el usuario en ese momento.
+
+```js
+$(window).scroll(function () {
+  console.log('El usuario se está desplazando')
+})
+```
+> Este código muestra un mensaje en consola cada vez que el usuario realiza un desplazamiento en la página.
+
+[Documentación oficial](https://api.jquery.com/scroll/)
+
+## ScrollTop
+
+El método `.scrollTop()` nos permite saber la distancia en pixeles que tiene un elemento en su borde superior con respecto a su padre, al aplicarlo sobre el objeto `window` podemos saber cuanto se desplazó el usuario en la ventana.
+
+```js
+$(window).scroll(function () {
+  var scrollTop = $(window).scrollTop()
+  console.log(scrollTop)
+})
+```
+> Este código muestra en consola la distancia en pixeles que se desplazó verticalmente el usuario por la ventana, cada vez realiza un desplazamiento en la página.
+
+[Documentación oficial](https://api.jquery.com/scrollTop/)
+
+## Css
+
+El método `.css()` nos permite obtener o modificar una o varias propiedades de CSS de un elemento del DOM.
+
+```js
+$('#container').css('height', '300px')
+```
+
+> Este código cambia la propiedad `height` de CSS por el valor `300px`, cambiar el alto del elemento.
+
+[Documentación oficial](https://api.jquery.com/css/)
+
+## Parallax
+
+Para lograr el efecto parallax precisamos superponer tres imágenes en HTML usando `position: absolute` y `z-index`, luego cambiamos la propiedad `top` de CSS dinámicamente a medida que el usuario va recorriendo la página.
+
+```js
+$(window).scroll(function () {
+  var scrollTop = $(window).scrollTop()
+  $('#background1').css('top', -(scrollTop * 0.25) + 'px')
+  $('#background2').css('top', -(scrollTop * 0.75) + 'px')
+  $('#background3').css('top', -(scrollTop * 2) + 'px')
+})
+```
+
+> Este código hace que el usuario vea que al recorrer la página la velocidad de desplazamiento de las tres imágenes es distinta en este caso `#background1 < #background2 < #background3`.
+
+# _CLASE 15_
+
+# ¿Qué es una API y para qué sirve?
+
+Una API (Application Programming Interface) es la forma o lenguaje en que se define la comunicación entre dos aplicaciones. Nosotros vamos a ver particularmente la comunicación con API's HTTP provistas por terceros que van a exponer distintas rutas para poder comunicarnos y pedirles información. Un ejemplo del uso puede ser la API de Google Calendar que permite gestionar el calendario y modificarlo sin acceder a la interfaz provista en sus aplicaciones.
+
+# ¿Qué son los métodos HTTP GET, POST, PUT y DELETE?
+
+Los métodos de petición GET, POST, PUT y DELETE de HTTP nos permiten identificar que tipo de acción se quiere realizar en la comunicación con la API. Estos métodos acompañan nuestra petición identificando el tipo de acción, junto con los datos y autentificación necesaria para llevarla a cabo.
+
+## GET
+
+El método GET se utiliza solo para pedir datos, por lo cual no se le debería envíar ningún parámetro fuera de la autentificación.
+
+## POST
+
+El método POST es para crear nuevas entidades, como puede ser un nuevo usuario en un ABM.
+
+## PUT
+
+El método PUT es para actualizar entidades en nuestra aplicación, lo que hace es reemplazar los datos de la entidad con los nuevos que le pasamos por parámetro.
+
+## DELETE
+
+El método DELETE nos permite borrar una entidad especifica.
+
+# AJAX
+
+El termino AJAX (Asynchronous JavaScript and XML) define la forma en la cual una página que ya cargo su contenido puede pedir nueva información a un servidor sin necesidad de recargar la página. Actualmente el lenguaje de comunicación más empleado no es XML sino que es JSON, pero el término AJAX sigue siendo el empleado para referirse a este tipo de comunicaciones. Nosotros vamos a utilizar el método `ajax()` de jQuery para realizar estas comunicaciones y vamos a usar los callback para poder responder asincrónicamente a cada tipo de respuesta, done, fail.
+
+Petición ejemplo:
+
+```js
+var request = $.ajax({
+  url: "https://swapi.co/api/people/1",
+  method: "GET"
+})
+ 
+request.done(function( data ) {
+  console.log( 'Respuesta: ',data )
+});
+ 
+request.fail(function( error ) {
+  console.log( 'Error: ' , error )
+})
+
+```
+
+Muestra en consola:
+
+```js
+Respuesta:  {
+  "name": "Luke Skywalker",
+  "height": "172",
+  "mass": "77",
+  "hair_color": "blond",
+  "skin_color": "fair",
+  "eye_color": "blue",
+  "birth_year": "19BBY",
+  "gender": "male",
+  "homeworld": "https://swapi.co/api/planets/1/",
+  "films": [
+    "https://swapi.co/api/films/2/",
+    "https://swapi.co/api/films/6/",
+    "https://swapi.co/api/films/3/",
+    "https://swapi.co/api/films/1/",
+    "https://swapi.co/api/films/7/"
+  ],
+  "species": [
+    "https://swapi.co/api/species/1/"
+  ],
+  "vehicles": [
+    "https://swapi.co/api/vehicles/14/",
+    "https://swapi.co/api/vehicles/30/"
+  ],
+  "starships": [
+    "https://swapi.co/api/starships/12/",
+    "https://swapi.co/api/starships/22/"
+  ],
+  "created": "2014-12-09T13:50:51.644000Z",
+  "edited": "2014-12-20T21:17:56.891000Z",
+  "url": "https://swapi.co/api/people/1/"
+}
+```
+
+# _CLASE 16_
+
+# ¿Qué es SPA y para qué sirve?
+
+Una SPA (Single Page Aplication) es una pagína web que se carga una única vez y luego va interactuando con el usuario cargando dinámicamente el contenido, en lugar de volver a cargar toda la página nuevamente. Esto permite mejorar la experiencia del usuario, los tiempos de carga y crear aplicaciones de gran complejidad que de otra forma serían muy difíciles. Algunos ejemplos de esto son [AutoCad web](https://web.autocad.com/) o [Google docs](https://www.google.com/docs/).
+
+# Creación e instalación de la estructura de un proyecto SPA
+
+## Organización de las carpetas del proyecto
+
+Vamos a empezar a organizar nuestro proyecto para poder construir una SPA, para esto vamos a dividir nuestro proyecto en dos carpetas principales una public que va a contener lo que vamos a subir al servidor y otra src que va a tener los archivos sin procesar.
+
+![Ejemplo de estructura de carpetas 1](https://github.com/adrianc4/programadorWeb-base/blob/master/Teoria%20plataforma/16_02_folders_example_1.png?raw=true)
+
+> En la carpeta public vamos a guardar el `index.html` y los archivos ya procesados de JavaScript, mientras que en la carpeta src vamos a guardar los archivos sin procesar de cada modulo de nuestro proyecto.
+
+## Creación del package.json
+
+Antes de empezar a instalar dependencias tenemos que generar nuestro archivo `package.json` que es el que va a contener la información de nuestro proyecto así como las dependencias del mismo. Para esto vamos a correr el siguiente comando desde la consola estando dentro de la carpeta de nuestro proyecto (en este caso Workshop final):
+
+`npm init`
+
+Luego de ejecutar los comandos vamos a ir completando los datos que sean necesarios si no sabemos que poner en alguno dejamos el valor por defecto, de todos modos más adelante vamos a poder modificarlos. El `package.json` debería quedar similar al siguiente:
+
+```js
+{
+  "name": "workshop-final",
+  "version": "1.0.0",
+  "description": "Workshop final - Camada 2935",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adrian Ferre",
+  "license": "ISC"
+}
+```
+
+## Instalación de dependencias del proyecto
+
+Dentro de la misma carpeta del proyecto vamos a ir corriendo comandos para poder instalar las dependencias que vamos a necesitar en nuestro proyecto.
+
+### jQuery
+
+Para manipular el DOM, realizar consultas AJAX y responder a los eventos vamos a utilizar la biblioteca de jQuery.
+
+`npm install jquery`
+
+### Boostrap
+
+Para la parte visual vamos a utilizar Boostrap para simplificar el trabajo de maquetado y también vamos a instalar Popper que es requerido para algunos componentes, jQuery también es requerido pero lo instalamos en el paso anterior.
+
+`npm install bootstrap@4.1.2 popper.js@^1.14.3`
+
+> Al utilizar el `@` en la instalación nos permite seleccionar versiones especificas de los paquetes de NPM.
+
+### Crossroads
+
+La biblioteca Crossroads nos va a permitir crear un Router para nuestra aplicación que nos va a ayudar a manejar la navegación entre pantallas y hacer el cambio de contenido junto con jQuery.
+
+`npm install crossroads`
+
+### Http-server
+
+Esta biblioteca nos va a permitir servir archivos estáticos como si fuera un servidor, sin eso el método `.load()` de jQuery no va a funcionar localmente.
+
+`npm install http-server -g`
+
+> El `-g` lo instala global en nuestra computadora, en caso de usar Mac poner la palabra `sudo` primero antes del comando npm y luego ingresar nuestra contraseña si nos la pide.
+
+### Webpack
+
+Para poder trabajar nuestro código en distintos archivos y luego compilarlo en uno solo que sea el que importe el usuario final en la carpeta public vamos a utilizar Webpack.
+
+`npm install --save-dev webpack webpack-cli`
+
+> Al utilizar `--save-dev` vamos a instalarlo como una dependencia de desarrollo. Esto en el `package.json` va a quedar dentro `devDependencies`, en lugar de en `dependencies`.
+
+### Procesador de CSS
+
+Por último para poder importar directamente desde nuestro JavaScript los CSS tenemos que agregar los siguientes dos módulos:
+
+`npm install --save-dev style-loader css-loader`
+
+### Concurrently [Solo windows]
+
+Para poder correr dos procesos al mismo tiempo en Windows es necesario instalar concurrently, ya que no lo soporta de forma nativa.
+
+`npm i concurrently --save-dev`
+
+## Configuración
+
+Por último vamos a agregar algunos archivos y líneas de código que nos van a permitir terminar de configurar nuestro proyecto.
+
+### Webpack
+
+Para terminar de configurar Webpack vamos a agregar un archivo en la carpeta de nuestro proyecto, al mismo nivel del `package.json` con el nombre `webpack.config.js` y dentro vamos a escribir el siguiente código:
+
+```js
+var webpack = require('webpack')
+
+module.exports = {
+  entry: [ __dirname + '/src/index.js' ],
+  output: {
+    path: __dirname + '/public/js/',
+    filename: 'index.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      }
+    ]
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    })
+  ],
+  watch: true
+}
+```
+
+> Esto configura el archivo de entrada y salida para JavaScript y crea una regla para poder importar y procesar los CSS desde nuestro archivo principal.
+
+### Package.json
+
+En el archivo `package.json` vamos a agregar el siguiente script:
+
+*Si usamos Mac:*
+
+```js
+  "scripts": {
+    "server": "http-server",
+    "start": "webpack --mode=development & npm run server",
+    "build": "webpack --mode=production"
+  },
+```
+
+*Si usamos windows:*
+
+```js
+  "scripts": {
+    "server": "http-server",
+    "dev": "webpack --mode=development",
+    "start": "concurrently --kill-others \"npm run dev\" \"npm run server\"",
+    "build": "webpack --mode=production"
+  },
+```
+
+> Esto nos va a permitir iniciar Webpack en modo desarrollo corriendo el comando `npm start` en consola, si corremos `npm build` lo hacemos en modo producción.
+
+## Archivos principales de nuestra aplicación
+
+1. En src/ debemos agregar el archivo `index.js` y dentro al comienzo el código:
+
+```js
+import 'jquery'
+import 'popper.js'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './js/app'
+```
+
+> Esto va a agregar Popover.js, Boostrap, sus estilos y nuestros archivos de JavaScript y CSS principales y a nuestro proyecto.
+
+2. En src/js/ debemos agregar el archivo `app.js` que va a ser el archivo JavaScript principal de nuestra aplicación.
+
+3. En src/css/ debemos agregar el archivo `styles.js` que va a ser el archivo CSS principal de nuestra aplicación.
+
+4. Luego agregar en nuestro `index.html` el siguiente tag:
+
+```html
+<script src="./js/index.js"></script>
+```
+
+> Como Webpack compila todo el código en el archivo `index.js` no es necesario importar nada más.
+
+Al final nos tiene que quedar una estructura como la siguiente:
+
+![Ejemplo de estructura de carpetas 2](https://github.com/adrianc4/programadorWeb-base/blob/master/Teoria%20plataforma/16_02_folders_example_2.png?raw=true)
+
+## ¿Como usarlo?
+
+A partir de este punto vamos a escribir nuestro código, ya sea CSS o JavaScript en los archivos ubicados en src/css o src/js y en consola vamos a dejar corriendo el comando `npm start`. Cada vez que haya un cambio en algún archivo importado en nuestro archivo `index.js` ubicado en src o en algún archivo importado por este Webpack va a volver a compilar el código y actualizar el `index.js` de la carpeta public, por lo cual con simplemente recargar nuestra página vamos a ver los cambios. Por otro lado http-server va a generar un servidor estático en http://localhost:8080/ y va a exponer en esa ruta lo que esta dentro de la carpeta public, por defecto ejecutando el `index.html`.
+
+*Importante deshabilitar cache y tener la consola abierta al momento de usarlo, parq ue refresque los cambios!!!*
+
+![Ejemplo de estructura de carpetas 2](https://github.com/adrianc4/programadorWeb-base/blob/master/Teoria%20plataforma/16_02_disabled_cache.png?raw=true)
+
+# Module Pattern
+
+El Module Pattern es un patrón de diseño que se utiliza en JavaScript para aislar partes del código en módulos independientes y de esta manera poder agrupar distintas funcionalidades. Antes este patrón se implementaba utilizando el mismo lenguaje, pero actualmente con herramientas como Webpack se puede hacer de manera automática al escribir distintos archivos e importarlos que es como lo vamos a utilizar en nuestro proyecto.
+
+[Versión solo con JavaScript](https://toddmotto.com/mastering-the-module-pattern/)
+
+## Creando el módulo
+
+Para poder crear nuestro primer modulo vamos a crear un archivo de JavaScript dentro de nuestra carpeta src/js/utils llamado `localStorage.js`:
+
+![Ejemplo 1](https://github.com/adrianc4/programadorWeb-base/blob/master/Teoria%20plataforma/16_03_module_example_1.png?raw=true)
+
+Y dentro de ese este archivo vamos a poner nuestras funciones que manipulan el localStorage:
+
+```js
+/**
+ * La función getLocalList permite obtener una lista en formato
+ * JavaScript del localStorage. Si la lista no existe devuelve un
+ * array vacío.
+ * @param { string } key 
+ * @returns { array }
+ */
+function getLocalList (key) {
+  if (typeof key === 'string') {
+    var localList = localStorage.getItem(key)
+    if (localList) {
+      var parsedList = JSON.parse(localList)
+      return parsedList
+    } else {
+      return []
+    }
+  }
+}
+
+/**
+ * La función setLocalList permite guardar una lista
+ * en el localStorage en formato JSON
+ * @param { string } key 
+ * @param { array } list 
+ */
+function setLocalList (key, list) {
+  if (typeof key === 'string' && Array.isArray(list)) {
+    var strList = JSON.stringify(list)
+    localStorage.setItem(key, strList)
+  }
+}
+```
+
+Luego en el final del archivo vamos a agregar la siguiente línea de código que nos permite exportar estas funciones para ser utilizadas por fuera:
+
+```js
+export { getLocalList, setLocalList }
+```
+
+> Esto permite exportar ambas funciones, si solo queremos importar una o queremos que una sea la que se exporte por defecto usamos `export default <Nombre de la función o variable>`.
+
+[Documentación export](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export)
+
+## Importando el módulo
+
+Para poder utilizar alguna de las funciones que exportamos en nuestro modulo lo que tenemos que hacer es importarlo en el archivo que lo precisemos usar:
+
+```js
+import { setLocalList } from './utils/localStorage'
+
+setLocalList('Pato', [ 1, 2, 3, 4 ])
+```
+> De esta forma podemos utilizar la función `setLocalList` desde otro archivo como si estuviese definida en este mismo código. Esto va a guardar un array en formato JSON en el localStorage con la key `Pato`.
+
+# Router de una SPA
+
+El Router en una SPA nos permite ejecutar nuestro código en respuesta a cambios en la URL, de esta manera podemos cambiar el contenido cuando cambia la URL y de esa manera simular la navegación entre distintas páginas de la App sin que el usuario vuelva a recargar. Por ejemplo si el usuario navega de `/home` -> `/contact` nosotros cargamos el HTML del formulario de contacto y su JavaScript asociado en nuestro contenedor principal pero sin movernos del `index.html`. Esto vuelve a la página mucho más rápida, le da una mejor experiencia al usuario y nos permite construir aplicaciones más complejas.
+
+## Crossroads
+
+Crossroads que es una biblioteca de JavaScript que nos permite ir ejecutando código a medida que cambias las rutas en la URL de nuestra página.
+
+[Página oficial](https://millermedeiros.github.io/crossroads.js/)
+
+Para empezar utilizarlo vamos a crear un archivo `router.js` en la misma carpeta que esta nuestro `app.js`.
+
+![Ejemplo 1](https://github.com/adrianc4/programadorWeb-base/blob/master/Teoria%20plataforma/16_04_router_example_1.png?raw=true)
+
+Dentro de `app.js` al comienzo del archivo vamos a agregar la siguiente línea de código:
+
+```js
+import './router'
+```
+
+> Esto va a incluir todo lo que escribamos en `router.js` en nuestra App.
+
+Luego dentro de `router.js` empezamos a definir nuestro Router agregando el siguiente código:
+
+
+```js
+import crossroads from 'crossroads'
+
+crossroads.addRoute('/', function () {
+  console.log('Home page')
+})
+
+// En cada cambio del # va a verificar las rutas
+$(window).on('hashchange', function () {
+  crossroads.parse(window.location.hash)
+})
+
+crossroads.parse(window.location.hash)
+```
+
+> Este código va a mostrar en consola `Home page` cuando este en la ruta principal de la App.
+
+Si queremos agregar nuevas rutas a nuestra App simplemente agregamos llamamos al `addRoute`:
+
+```js
+crossroads.addRoute('#/contact', function () {
+  console.log('Contact page')
+})
+```
+
+> Este código muestra en consola `Contact page` cuando estoy en la ruta `#/contact`
+
+# Load de jQuery
+
+El método `load()` de jQuery nos permite cargar dinámicamente código HTML dentro de un componente y luego ejecutar una función que le pasamos como parámetro cuando la carga esta completa.
+
+`index.html`
+
+```html
+...
+<div id="root"></div>
+...
+```
+
+`home.html`
+
+```html
+<h1>Home page</h1>
+```
+
+`router.js`
+
+```js
+$('#root').load('./partials/home.html', function(){
+  console.log('Se cargo la home')
+})
+```
+
+> Este código carga todo el contenido de `home.html` dentro del `<div id="root"></div>` del `index.html`.
+
+# Patrón MVC
+
+El patrón de diseño MVC (Model, View, Controller) nos permite organizar nuestro código siguiendo una estructura clara y haciendo lo más legible y fácil de mantener. Este patrón de diseño tiene tres partes:
+
+1. Model: Es el código encargado de manipular nuestras fuentes de datos, normalmente también valida permisos y accesos. En nuestro caso es el localStorage o los datos en la API de Star Wars.
+2. View: Es la parte del código encargada de mostrarle la información al usuario. En nuestro caso es el HTML.
+3. Controller: Va a ser el JavaScript asociado a una vista en particular. Por ejemplo el código que valida el formulario está asociado a la vista en HTML del mismo, pero no guarda relación con el HTML de la tabla de personajes.
+
+## Cargar controladores con jQuery
+
+Al usar el método `load()` de jQuery cargamos dentro de un contenedor un HTML y también ejecutamos un código de JavaScript cuando el HTML está totalmente cargado, ese código va a ser nuestro controlador asociado a la vista. Vamos a usar un controlador por cada vista de nuestra aplicación.
+
+`index.html`
+
+```html
+...
+<div id="root"></div>
+...
+```
+
+`home.html`
+
+```html
+<h1>Home page</h1>
+```
+
+`homeController.js`
+
+```js
+function homeController(){
+  console.log('Se cargo la home')
+}
+
+export default homeController
+```
+
+`router.js`
+
+```js
+import homeController from './controllers/homeController'
+
+$('#root').load('./partials/home.html', homeController)
+```
+
+> Este código carga la vista de home y cuando termina de cargalo ejecuta el código del archivo `homeController.js` mostrando en consola `Se cargo la home`.
