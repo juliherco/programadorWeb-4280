@@ -6,6 +6,7 @@ $(document).ready(function() {
   function getData(url, cbk) {
     $.ajax(url)
       .done(function(data) {
+        //el .done dice que se ejecute algo cuando nos haya traido toda la info de la api
         cbk(null, data)
       })
       .fail(function(error) {
