@@ -1,5 +1,7 @@
 import crossroads from 'crossroads' //Está instalado por default en algun lado en node modules.
 import contactController from './controllers/contactController'
+import localStorageController from './controllers/localStorageController'
+import getApiList from './controllers/peopleController'
 
 function router() {
   crossroads.addRoute('', function() {
@@ -15,15 +17,11 @@ function router() {
   })
 
   crossroads.addRoute('#/people', function() {
-    $('#root').load('./partials/people.html', function() {
-      console.log('People page')
-    })
+    $('#root').load('./partials/people.html', getApiList)
   })
 
   crossroads.addRoute('#/local-storage', function() {
-    $('#root').load('./partials/local-storage.html', function() {
-      console.log('LS page')
-    })
+    $('#root').load('./partials/local-storage.html', localStorageController)
   })
 
   crossroads.addRoute('#/contact', function() {

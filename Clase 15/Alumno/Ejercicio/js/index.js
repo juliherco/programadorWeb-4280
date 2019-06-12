@@ -6,12 +6,13 @@ $(document).ready(function() {
   function getData(url, cbk) {
     $.ajax(url)
       .done(function(data) {
-        //el .done dice que se ejecute algo cuando nos haya traido toda la info de la api
+        //el .done dice que se ejecute algo cuando todo estè bien
         cbk(null, data)
       })
       .fail(function(error) {
+        //si la api falla usamos el .fail
         cbk(error)
-      })
+      }) //el done y el fail tienen que ver con el status code que salga cuando llama a la api (202, 404, etc). Si el numero que trae es bueno, se ejecuta SOLAMENTE la parte de done. Si trae errror se ejecuta solamente la otra parte
   }
 
   function callback(error, data) {
