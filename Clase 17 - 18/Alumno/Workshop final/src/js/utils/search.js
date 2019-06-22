@@ -19,4 +19,4 @@ function searchPersonIndexById(id, peopleList) {
   return index
 }
 
-export default { searchPersonIndexById }
+export default searchPersonIndexById
