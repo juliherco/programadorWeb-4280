@@ -1,119 +1,84 @@
-import getData from '../utils/getDataFromApi'
+import { getData, getAllList } from '../utils/getDataFromApi'
 import { getLocalList, setLocalList } from '../utils/localStorage'
 import translates from '../utils/translate'
-import { searchPersonIndexById } from '../utils/search'
-
-// var apiList = []
-
-// function peopleController() {
-//   // var searchingMore
-
-//   // var nextUrl
-
-//   getData('https://swapi.co/api/people', getApiList)
-// }
-
-// function getApiList(error, data) {
-//   var localList = getLocalList('peopleList')
-
-//   var lang = 'es'
-//   var addButton = $('#seeMore')
-//   var tableBody = $('#tableBody')
-
-//   // var index = searchPersonIndexById() //TODO: PARA QUE NO SE CARGUE EL BOTON SI YA ESTA EN EL LS
-
-//   if (!error) {
-//     apiList = apiList.concat(data.results) //cada pagina nueva me la une al final de la lista
-//     console.log(apiList)
-//     for (var i = 0; i < apiList.length; i++) {
-//       var person = apiList[i]
-//       var id = person.url.split('/')[5]
-
-//       tableBody.append(
-//         '<tr><th scope="row">' +
-//           id +
-//           '</th><td>' +
-//           person.name +
-//           '</td><td>' +
-//           translates[lang]['gender'][person.gender] +
-//           '</td><td>' +
-//           person.height +
-//           ' cm</td><td>' +
-//           person.mass +
-//           ' kg</td><td>' +
-//           person.eye_color +
-//           '</td><td><button id="' +
-//           id +
-//           '" type="button" class="btn btn-info">Save</button></td></tr>'
-//       )
-//       if (data.next) {
-//         addButton.one('click', function() {
-//           getData(data.next, getApiList)
-//         })
-//       } else if (data.next === null) {
-//         addButton.attr('disabled', true)
-//       }
-//     }
-//     var saveButton = $('.btn-info')
-
-//     saveButton.one('click', function() {
-//       var saveId = $(this).attr('id')
-//       console.log(saveId)
-
-//       // var index = searchPersonIndexById(saveId, results)
-
-//       // if (index === -1) {
-//       // results.push(person[index])
-//       setLocalList('peopleList', person)
-//     })
-//   }
-// }
+import searchPersonIndexById from '../utils/search'
 
 function peopleController() {
-  var seeMoreButton = $('#seeMore')
   var tableBody = $('#tableBody')
-  var localList = getLocalList('peopleList')
+
+  var seeMoreButton = $('#seeMore')
 
   var apiList = []
 
-  var lang = 'es'
+  var peopleLocalList = getLocalList('peopleList')
 
-  console.log('PATO', localList)
-  getData('https://swapi.co/api/people/', cbk)
+  var startUrl = 'https://swapi.co/api/people/'
 
-  function cbk(error, data) {
-    if (!error) {
-      apiList = apiList.concat(data.results)
-      for (var i = 0; i < apiList.length; i++) {
-        var person = apiList[i]
-        console.log(person)
-        var id = person.url.split('/')[5]
+  loadPeople(startUrl)
 
-        tableBody.append(
-          '<tr><th scope="row">' +
-            id +
-            '</th><td>' +
-            person.name +
-            '</td><td>' +
-            translates[lang]['gender'][person.gender] +
-            '</td><td>' +
-            person.height +
-            ' cm</td><td>' +
-            person.mass +
-            ' kg</td><td>' +
-            person.eye_color +
-            '</td><td><button id="' +
-            id +
-            '" type="button" class="btn btn-info">Save</button></td></tr>'
-        )
-
-        if (data.next) {
-          seeMoreButton.one('click', function() {
-            getData(data.next, cbk)
-          })
-        }
+  function loadPeople(url) {
+    //Trae a los personajes desde la api
+    getData(url, function(error, data) {
+      if (data.results) {
+        appendPeople(data.results)
+        apiList = apiList.concat(data.results)
       }
+
+      if (!error && data) {
+        //Carga la siguiente pagina de personajes cuando apreto ver mas
+        seeMoreButton.one('click', function() {
+          loadPeople(data.next)
+        })
+      } else if (data.next === 'null') {
+        seeMoreButton.css('display', 'none') //no funciona, arreglar
+      }
+    })
+  }
+
+  function appendPeople(peopleList) {
+    //me muestra la lista de personajes en el DOM
+    var lang = 'es'
+    var person
+
+    for (var i = 0; i < peopleList.length; i++) {
+      person = peopleList[i]
+
+      var peopleId = person.url.split('/')[5]
+
+      tableBody.append(
+        '<tr id="' +
+          peopleId +
+          '"><th scope="row" >' +
+          peopleId +
+          '</th><td>' +
+          person.name +
+          '</td><td>' +
+          translates[lang]['gender'][person.gender] +
+          '</td><td>' +
+          person.height +
+          ' cm</td><td>' +
+          person.mass +
+          ' kg</td><td>' +
+          translates[lang]['eye_color'][person.eye_color] +
+          '</td><td><button type="button" class="btn btn-success">Save</button></td></tr>'
+      )
+
+      $('#' + peopleId).click(function() {
+        var rowNode = $(this)
+        var id = rowNode.attr('id')
+
+        var index = searchPersonIndexById(id, apiList)
+
+        peopleLocalList.push(apiList[index])
+
+        setLocalList('peopleList', peopleLocalList)
+
+        rowNode.hide(300, function() {
+          rowNode.remove()
+        })
+      })
     }
   }
 }
+
 export default peopleController
