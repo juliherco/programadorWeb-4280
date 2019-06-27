@@ -46,22 +46,22 @@ function searchStudent() {
       searchListNode.appendChild(liSearch)
     }
   }
+}
 
-  function searchStudentIndexByText(text, studentsList) {
-    var index = -1
-    for (var i = 0; i < studentsList.length; i++) {
-      var student = studentsList[i]
-      if (
-        includesText(text, student.firstName) ||
-        includesText(text, student.lastName)
-      ) {
-        index = i
-        break
-      }
+function searchStudentIndexByText(text, studentsList) {
+  var index = -1
+  for (var i = 0; i < studentsList.length; i++) {
+    var student = studentsList[i]
+    if (
+      includesText(text, student.firstName) ||
+      includesText(text, student.lastName)
+    ) {
+      index = i
+      break
     }
-    return index
   }
-
+  return index
+}
 
 /**
  * includesText busca coincidencias parciales del primer texto
