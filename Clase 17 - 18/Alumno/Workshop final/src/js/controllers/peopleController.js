@@ -59,7 +59,7 @@ function peopleController() {
           ' cm</td><td>' +
           person.mass +
           ' kg</td><td>' +
-          translates[lang]['eye_color'][person.eye_color] +
+          translates[lang]['eyeColor'][person.eye_color] +
           '</td><td><button type="button" class="btn btn-success">Save</button></td></tr>'
       )
 
@@ -72,6 +72,16 @@ function peopleController() {
         peopleLocalList.push(apiList[index])
 
         setLocalList('peopleList', peopleLocalList)
+
+        // console.log(peopleLocalList)
+
+        // var newIndex = searchPersonIndexById(index, peopleLocalList)
+
+        // console.log(newIndex)
+
+        // if (newIndex !== -1) {
+        //   apiList.splice(newIndex, 1)
+        // }
 
         rowNode.hide(300, function() {
           rowNode.remove()
