@@ -19,4 +19,15 @@ function searchPersonIndexById(id, peopleList) {
   return index
 }
 
-export default searchPersonIndexById
+function searchIndexByUrl(url, peopleList) {
+  for (var i = 0; i < peopleList.length; i++) {
+    var person = peopleList[i]
+    if (url === person.url) {
+      return i
+    }
+  }
+
+  return -1
+}
+
+export { searchPersonIndexById, searchIndexByUrl }

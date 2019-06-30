@@ -1,7 +1,7 @@
 import { getData, getAllList } from '../utils/getDataFromApi'
 import { getLocalList, setLocalList } from '../utils/localStorage'
 import translates from '../utils/translate'
-import searchPersonIndexById from '../utils/search'
+import { searchPersonIndexById, searchIndexByUrl } from '../utils/search'
 
 function peopleController() {
   var tableBody = $('#tableBody')
@@ -30,7 +30,7 @@ function peopleController() {
           loadPeople(data.next)
         })
       } else if (data.next === 'null') {
-        seeMoreButton.css('display', 'none') //no funciona, arreglar
+        seeMoreButton.remove() //no funciona, arreglar
       }
     })
   }
@@ -43,7 +43,22 @@ function peopleController() {
     for (var i = 0; i < peopleList.length; i++) {
       person = peopleList[i]
 
-      var peopleId = person.url.split('/')[5]
+      var personUrl = person.url
+
+      var localIndex = searchIndexByUrl(personUrl, peopleLocalList)
+
+      var peopleId = personUrl.split('/')[5]
+
+      var addButton
+
+      if (localIndex === -1) {
+        addButton =
+          '<button id="button' +
+          peopleId +
+          '" type="button" class="btn btn-success">Guardar</button>'
+      } else {
+        addButton = ''
+      }
 
       tableBody.append(
         '<tr id="' +
@@ -60,32 +75,31 @@ function peopleController() {
           person.mass +
           ' kg</td><td>' +
           translates[lang]['eyeColor'][person.eye_color] +
-          '</td><td><button type="button" class="btn btn-success">Save</button></td></tr>'
+          '</td><td>' +
+          addButton +
+          '</td></tr>'
       )
 
-      $('#' + peopleId).click(function() {
-        var rowNode = $(this)
-        var id = rowNode.attr('id')
+      $('#button' + peopleId).click(function() {
+        var button = $(this)
 
-        var index = searchPersonIndexById(id, apiList)
+        var buttonId = button.attr('id')
 
-        peopleLocalList.push(apiList[index])
+        var id = buttonId.replace('button', '')
 
-        setLocalList('peopleList', peopleLocalList)
+        var newUrl = 'https://swapi.co/api/people/' + id + '/'
 
-        // console.log(peopleLocalList)
+        var index = searchIndexByUrl(newUrl, apiList)
 
-        // var newIndex = searchPersonIndexById(index, peopleLocalList)
+        if (index !== -1) {
+          var personInfo = apiList[index]
 
-        // console.log(newIndex)
+          peopleLocalList.push(personInfo)
 
-        // if (newIndex !== -1) {
-        //   apiList.splice(newIndex, 1)
-        // }
+          setLocalList('peopleList', peopleLocalList)
 
-        rowNode.hide(300, function() {
-          rowNode.remove()
-        })
+          button.remove()
+        }
       })
     }
   }

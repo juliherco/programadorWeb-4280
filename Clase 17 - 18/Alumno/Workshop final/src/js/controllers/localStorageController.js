@@ -1,6 +1,6 @@
 import { getLocalList, setLocalList } from '../utils/localStorage'
 import translates from '../utils/translate'
-import searchPersonIndexById from '../utils/search'
+import { searchPersonIndexById } from '../utils/search'
 
 function localStorageController() {
   var lang = 'es'
