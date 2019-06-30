@@ -1,3 +1,5 @@
+import { postData } from '../utils/getDataFromApi'
+
 function contactController() {
   // Busco los nodos que voy a utilizar
   var firstNameInputNode = $('#firstName')
@@ -89,6 +91,24 @@ function contactController() {
 
     validateButton()
   }
+
+  submitButtonNode.click(function() {
+    var firstName = firstNameInputNode.val()
+    var email = emailInputNode.val()
+    var comments = commentsInputNode.val()
+
+    var data = {
+      firstName: firstName,
+      email: email,
+      comments: comments
+    }
+
+    postData('./simpleEmail.php', data, function(error, data) {
+      if (!error) {
+        window.location.hash = '#/contact/greetings'
+      }
+    })
+  })
 
   /**
    * validateButton habilita el botón de submit si existen
